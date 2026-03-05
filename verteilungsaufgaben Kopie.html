@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verteilungsaufgaben – Mathe-Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1c1c2e;
+  --paper: #fafaf7;
+  --cream: #f4f1ea;
+  --blue: #2563eb;
+  --blue-l: #dbeafe;
+  --green: #16a34a;
+  --green-l: #dcfce7;
+  --orange: #ea580c;
+  --orange-l: #ffedd5;
+  --violet: #7c3aed;
+  --violet-l: #ede9fe;
+  --teal: #0d9488;
+  --teal-l: #ccfbf1;
+  --rose: #e11d48;
+  --rose-l: #ffe4e6;
+  --gold: #d97706;
+  --gold-l: #fef3c7;
+  --border: #e5e0d8;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.07);
+  --shadow: 0 4px 20px rgba(0,0,0,0.09);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.13);
+  --r: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  background: var(--ink);
+  color: #fff;
+  padding: 52px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(37,99,235,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(124,58,237,0.20) 0%, transparent 60%);
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: #93c5fd;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  opacity: 0.75;
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.65;
+  position: relative;
+}
+
+.hero-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.hero-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+.hero-btn.primary { background: var(--blue); color: #fff; }
+.hero-btn.secondary { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+
+/* ===================== INTRO SECTION ===================== */
+.section {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.intro-card {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+}
+
+.intro-card .ic-icon { font-size: 2rem; margin-bottom: 10px; }
+.intro-card .ic-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.intro-card .ic-text { font-size: 0.85rem; color: #555; line-height: 1.55; }
+
+/* ===================== RATIO EXPLAINER ===================== */
+.ratio-box {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.ratio-box h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.ratio-box p {
+  opacity: 0.75;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.ratio-visual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.ratio-part {
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 10px 18px;
+  text-align: center;
+}
+
+.ratio-part .rp-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ratio-part .rp-label {
+  font-size: 0.75rem;
+  opacity: 0.65;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.ratio-colon {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+.ratio-equals {
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+.ratio-sum-box {
+  background: rgba(147, 197, 253, 0.2);
+  border: 1.5px solid rgba(147,197,253,0.35);
+  border-radius: 10px;
+  padding: 10px 18px;
+  text-align: center;
+}
+
+.ratio-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.ratio-step {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px;
+  border-left: 3px solid rgba(147,197,253,0.5);
+}
+
+.ratio-step .rs-num {
+  font-size: 0.72rem;
+  opacity: 0.55;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.ratio-step .rs-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.ratio-step code {
+  font-family: 'DM Mono', monospace;
+  background: rgba(255,255,255,0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* ===================== TOOL ===================== */
+.tool-wrapper {
+  background: var(--cream);
+  border-top: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  padding: 40px 20px;
+}
+
+.tool-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 720px) {
+  .tool-inner { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: #fff;
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  border: 1.5px solid var(--border);
+}
+
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-group { display: flex; flex-direction: column; gap: 5px; }
+
+label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+input[type="number"], input[type="text"] {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 9px 13px;
+  border: 2px solid var(--border);
+  border-radius: 9px;
+  outline: none;
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 0.18s;
+}
+input:focus { border-color: var(--blue); background: #fff; }
+
+.setup-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 18px; }
+.inp-md { width: 120px; }
+.inp-sm { width: 80px; }
+
+.parteien-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 12px; }
+
+.partei-row {
+  display: flex; align-items: center; gap: 9px;
+  background: var(--paper); border-radius: 9px;
+  padding: 9px 12px; border: 1.5px solid var(--border);
+  transition: border-color 0.18s;
+}
+.partei-row:hover { border-color: var(--blue); }
+
+.p-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.p-name { flex: 1; min-width: 60px; }
+.p-num { width: 80px; }
+.p-rm { background: none; border: none; cursor: pointer; color: #ccc; font-size: 1.1rem; padding: 2px 6px; border-radius: 5px; transition: color 0.15s, background 0.15s; }
+.p-rm:hover { color: var(--rose); background: var(--rose-l); }
+
+.btn { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.88rem; padding: 9px 18px; border: none; border-radius: 9px; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+.btn-outline { background: #fff; border: 2px solid var(--border); color: var(--ink); }
+.btn-blue { background: var(--blue); color: #fff; }
+
+.mode-row { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; }
+.mode-lbl { font-size: 0.78rem; font-weight: 600; color: #888; }
+.mode-btn { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 6px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; background: #fff; color: #888; transition: all 0.15s; }
+.mode-btn.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+/* ---- SCHEMA ---- */
+.schema-canvas {
+  background: linear-gradient(160deg, #f0f4ff 0%, #fafaf7 100%);
+  border-radius: 14px;
+  border: 2px solid #dbeafe;
+  padding: 28px 18px 22px;
+  overflow-x: auto;
+}
+
+.sc-total {
+  display: flex; justify-content: center; margin-bottom: 4px;
+}
+.sc-total-box {
+  background: var(--blue);
+  color: #fff;
+  border-radius: 13px;
+  padding: 13px 28px;
+  text-align: center;
+  min-width: 180px;
+  box-shadow: 0 4px 18px rgba(37,99,235,0.28);
+}
+.sc-total-box .tb-lbl { font-size: 0.7rem; font-weight: 700; opacity: 0.75; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+.sc-total-box .tb-val { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 900; line-height: 1; }
+.sc-total-box .tb-sub { font-size: 0.75rem; opacity: 0.65; margin-top: 3px; }
+
+.sc-arrow { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 0; margin: 2px 0; }
+.sc-arrow .a-lbl { font-size: 0.73rem; font-weight: 700; color: #666; }
+.sc-arrow .a-sym { font-size: 1.3rem; color: var(--blue); opacity: 0.6; line-height: 1; }
+
+.sc-pk { display: flex; justify-content: center; margin: 2px 0 6px; }
+.sc-pk-box {
+  background: #fff;
+  border: 2.5px solid var(--blue);
+  border-radius: 11px;
+  padding: 9px 22px;
+  text-align: center;
+  min-width: 170px;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+}
+.sc-pk-box .pk-lbl { font-size: 0.68rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+.sc-pk-box .pk-val { font-family: 'Fraunces', serif; font-size: 1.45rem; font-weight: 900; color: var(--blue); }
+
+.pk-inp { width: 110px; text-align: center; font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--blue); border: none; border-bottom: 2px dashed var(--blue); border-radius: 0; background: transparent; padding: 2px 6px; }
+.pk-inp:focus { outline: none; border-bottom: 2px solid var(--blue); }
+
+/* branches */
+.sc-branches { display: flex; justify-content: space-around; align-items: flex-start; width: 100%; margin-top: 4px; position: relative; }
+.sc-branch { display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 155px; min-width: 90px; }
+.branch-v { width: 2px; height: 16px; background: rgba(37,99,235,0.2); }
+.branch-xlbl { font-size: 0.78rem; font-weight: 700; color: var(--blue); opacity: 0.75; margin: 1px 0; }
+.branch-arr { font-size: 1.2rem; color: var(--blue); opacity: 0.55; line-height: 1; }
+.sc-party-box { border-radius: 11px; padding: 10px 12px; text-align: center; width: 95%; max-width: 140px; border: 2.5px solid transparent; margin-top: 3px; }
+.sc-party-box .pb-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; margin-bottom: 1px; }
+.sc-party-box .pb-n { font-size: 0.72rem; opacity: 0.6; font-weight: 500; margin-bottom: 4px; }
+.sc-party-box .pb-val { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 900; line-height: 1; }
+
+.pb-inp { width: 100%; font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 900; text-align: center; border: none; border-bottom: 2px dashed; border-radius: 0; background: transparent; padding: 2px 2px; color: inherit; }
+.pb-inp:focus { outline: none; border-bottom: 2px solid; }
+
+.sc-check { margin-top: 18px; padding-top: 14px; border-top: 2px dashed #dbeafe; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ck-lbl { font-size: 0.78rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.ck-val { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 900; }
+.ck-badge { font-size: 0.85rem; font-weight: 700; padding: 5px 12px; border-radius: 7px; }
+.ck-ok { background: var(--green-l); color: var(--green); }
+.ck-err { background: var(--rose-l); color: var(--rose); }
+
+/* colors */
+.c0 { --cc:#2563eb; --cl:#dbeafe; }
+.c1 { --cc:#16a34a; --cl:#dcfce7; }
+.c2 { --cc:#ea580c; --cl:#ffedd5; }
+.c3 { --cc:#7c3aed; --cl:#ede9fe; }
+.c4 { --cc:#0d9488; --cl:#ccfbf1; }
+.c5 { --cc:#e11d48; --cl:#ffe4e6; }
+.sc-party-box.c0{background:#dbeafe;border-color:#2563eb;color:#2563eb;}
+.sc-party-box.c1{background:#dcfce7;border-color:#16a34a;color:#16a34a;}
+.sc-party-box.c2{background:#ffedd5;border-color:#ea580c;color:#ea580c;}
+.sc-party-box.c3{background:#ede9fe;border-color:#7c3aed;color:#7c3aed;}
+.sc-party-box.c4{background:#ccfbf1;border-color:#0d9488;color:#0d9488;}
+.sc-party-box.c5{background:#ffe4e6;border-color:#e11d48;color:#e11d48;}
+.dot0{background:#2563eb;} .dot1{background:#16a34a;} .dot2{background:#ea580c;}
+.dot3{background:#7c3aed;} .dot4{background:#0d9488;} .dot5{background:#e11d48;}
+.xcol0{color:#2563eb;} .xcol1{color:#16a34a;} .xcol2{color:#ea580c;}
+.xcol3{color:#7c3aed;} .xcol4{color:#0d9488;} .xcol5{color:#e11d48;}
+
+/* Taschenrechner */
+.calc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; }
+.calc-disp {
+  grid-column: 1/-1; background: var(--ink); color: #e2e8f0;
+  border-radius: 10px; padding: 10px 15px; text-align: right;
+  font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 700;
+  min-height: 54px; display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: flex-end; line-height: 1.15;
+  margin-bottom: 2px; word-break: break-all;
+}
+.calc-disp .prev { font-size: 0.78rem; opacity: 0.45; min-height: 16px; font-family: 'DM Mono', monospace; }
+.cb { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; padding: 12px 4px; border: none; border-radius: 9px; cursor: pointer; transition: transform 0.1s, filter 0.1s; background: #f0f4ff; color: var(--ink); }
+.cb:hover { filter: brightness(0.93); transform: scale(0.96); }
+.cb:active { transform: scale(0.91); }
+.cb.op { background: #dbeafe; color: var(--blue); }
+.cb.eq { background: var(--blue); color: #fff; grid-column: span 2; }
+.cb.cl { background: var(--rose-l); color: var(--rose); }
+.cb.z2 { grid-column: span 2; }
+
+/* ===================== TASKS ===================== */
+.tasks-section { background: var(--paper); padding: 40px 20px; }
+.tasks-inner { max-width: 980px; margin: 0 auto; }
+
+.task-filter {
+  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center;
+}
+.tf-lbl { font-size: 0.78rem; font-weight: 700; color: #888; margin-right: 4px; }
+.tf-btn { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 6px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; background: #fff; color: #888; transition: all 0.15s; }
+.tf-btn.on { border-color: currentColor; }
+.tf-btn.cat-all.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.tf-btn.cat-schule.on { background: var(--blue-l); color: var(--blue); }
+.tf-btn.cat-natur.on { background: var(--green-l); color: var(--green); }
+.tf-btn.cat-geld.on { background: var(--gold-l); color: var(--gold); }
+.tf-btn.cat-alltag.on { background: var(--orange-l); color: var(--orange); }
+.tf-btn.cat-sport.on { background: var(--violet-l); color: var(--violet); }
+
+.tasks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+.task-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.task-card.cat-schule::before { background: var(--blue); }
+.task-card.cat-natur::before { background: var(--green); }
+.task-card.cat-geld::before { background: var(--gold); }
+.task-card.cat-alltag::before { background: var(--orange); }
+.task-card.cat-sport::before { background: var(--violet); }
+
+.task-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: #c7d2fe; }
+
+.tc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.tc-num { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: #e2e8f0; }
+.tc-badge { font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.3px; }
+.cat-schule .tc-badge { background: var(--blue-l); color: var(--blue); }
+.cat-natur .tc-badge { background: var(--green-l); color: var(--green); }
+.cat-geld .tc-badge { background: var(--gold-l); color: var(--gold); }
+.cat-alltag .tc-badge { background: var(--orange-l); color: var(--orange); }
+.cat-sport .tc-badge { background: var(--violet-l); color: var(--violet); }
+
+.tc-text { font-size: 0.88rem; line-height: 1.6; color: #444; }
+.tc-load { margin-top: 12px; font-size: 0.78rem; font-weight: 700; color: var(--blue); opacity: 0; transition: opacity 0.2s; }
+.task-card:hover .tc-load { opacity: 1; }
+
+/* ===================== FOOTER ===================== */
+.footer { text-align: center; padding: 32px 20px; color: #aaa; font-size: 0.82rem; border-top: 1px solid var(--border); }
+
+/* ===================== MOBILE FIX ===================== */
+input[type="number"], input[type="text"] {
+  font-size: 16px !important;
+}
+
+@media (max-width: 700px) {
+  .tool-inner { grid-template-columns: 1fr !important; }
+  .tool-inner > div:last-child { position: static !important; }
+  .btn, .mode-btn, .tf-btn, .hero-btn { min-height: 44px; padding: 10px 18px; font-size: 0.95rem !important; }
+  .cb { min-height: 52px; font-size: 1.2rem; padding: 14px 4px; }
+  .p-rm { min-width: 36px; min-height: 36px; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; }
+  .partei-row { padding: 10px 10px; gap: 8px; }
+  .p-num { width: 70px; }
+  .hero { padding: 32px 16px 28px; }
+  .hero-nav { flex-direction: column; align-items: center; gap: 10px; }
+  .hero-btn { width: 100%; max-width: 280px; text-align: center; }
+  .intro-grid { grid-template-columns: 1fr; }
+  .ratio-box { padding: 20px 14px; }
+  .ratio-visual { flex-wrap: wrap; gap: 8px; }
+  .sc-branches { overflow-x: auto; padding-bottom: 8px; }
+  .sc-branch { min-width: 100px; }
+  .tasks-grid { grid-template-columns: 1fr; }
+  .task-card { padding: 16px; }
+  .tc-load { opacity: 1 !important; }
+  .task-filter { gap: 8px; }
+  .tf-btn { min-height: 38px; font-size: 0.85rem; }
+  .card { padding: 18px 14px; }
+  .calc-disp { font-size: 2rem; min-height: 64px; }
+  .schema-canvas { padding: 20px 10px 16px; }
+  .sc-total-box { min-width: 150px; padding: 12px 18px; }
+  .sc-total-box .tb-val { font-size: 1.5rem; }
+  .mode-row { flex-wrap: wrap; }
+  .section { padding: 28px 14px; }
+  .tasks-section { padding: 28px 14px; }
+  .tool-wrapper { padding: 28px 14px; }
+  .ratio-steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-tag">🧮 Mathematik · Primarstufe / Sek I</div>
+  <h1>Verteilungs&shy;<em>aufgaben</em></h1>
+  <p class="hero-desc">Einen Betrag fair auf verschiedene Gruppen aufteilen – proportional nach Anzahl. Schritt für Schritt, mit Schema, Taschenrechner und 20 echten Aufgaben.</p>
+  <div class="hero-nav">
+    <a href="#erklaerung" class="hero-btn primary">📖 Erklärung lesen</a>
+    <a href="#tool" class="hero-btn secondary">🛠️ Direkt zum Tool</a>
+    <a href="#aufgaben" class="hero-btn secondary">📋 20 Aufgaben</a>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="section" id="erklaerung">
+  <div class="section-label">Was lerne ich hier?</div>
+  <div class="section-title">Proportionale Verteilung – einfach erklärt</div>
+
+  <div class="intro-grid">
+    <div class="intro-card">
+      <div class="ic-icon">🎯</div>
+      <div class="ic-title">Was ist das Ziel?</div>
+      <div class="ic-text">Ein Gesamtbetrag wird so aufgeteilt, dass jeder <strong>gleich viel pro Einheit</strong> (pro Person, pro Tier, pro km) zahlt oder erhält. Wer mehr Einheiten hat, zahlt mehr.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">⚖️</div>
+      <div class="ic-title">Fair und proportional</div>
+      <div class="ic-text">«Proportional» heisst: Der Anteil wächst gleichmässig mit. 2× mehr Personen = 2× höherer Anteil. Das ist <strong>fair</strong> – niemand wird bevorzugt oder benachteiligt.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">🔢</div>
+      <div class="ic-title">So geht es</div>
+      <div class="ic-text">1. Gesamtbetrag ÷ alle Einheiten = <em>Wert pro Einheit</em><br>2. Wert pro Einheit × Einheiten der Gruppe = <em>Anteil der Gruppe</em><br>3. Alle Anteile addiert = Gesamtbetrag ✓</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">📐</div>
+      <div class="ic-title">Das Verhältnis</div>
+      <div class="ic-text">Statt «18 und 22 Personen» kann man auch das <strong>Verhältnis 18:22</strong> schreiben. Das zeigt, wie die Gruppen im Vergleich zueinander stehen – mehr dazu gleich unten!</div>
+    </div>
+  </div>
+
+  <!-- RATIO EXPLAINER -->
+  <div class="ratio-box" id="ratio-explainer">
+    <h3>🔍 Was bedeutet das Verhältnis x : y ?</h3>
+    <p>Ein Verhältnis beschreibt, <strong>wie gross eine Grösse im Vergleich zu einer anderen ist</strong>. Es sagt nicht direkt «wie viel», sondern «wie viele Male mehr oder weniger».</p>
+
+    <div class="ratio-visual">
+      <div class="ratio-part"><div class="rp-num">18</div><div class="rp-label">Klasse A</div></div>
+      <div class="ratio-colon">:</div>
+      <div class="ratio-part"><div class="rp-num">22</div><div class="rp-label">Klasse B</div></div>
+      <div class="ratio-equals">=</div>
+      <div class="ratio-part"><div class="rp-num">9</div><div class="rp-label">vereinfacht</div></div>
+      <div class="ratio-colon">:</div>
+      <div class="ratio-part"><div class="rp-num">11</div><div class="rp-label">vereinfacht</div></div>
+      <div class="ratio-equals">→</div>
+      <div class="ratio-sum-box"><div class="rp-num">40</div><div class="rp-label">Teile total</div></div>
+    </div>
+
+    <div class="ratio-steps">
+      <div class="ratio-step">
+        <div class="rs-num">Schritt 1 · Teile zählen</div>
+        <div class="rs-text">Alle Anteile addieren: <code>18 + 22 = 40</code> Teile total. Diese Zahl ist der Nenner.</div>
+      </div>
+      <div class="ratio-step">
+        <div class="rs-num">Schritt 2 · Wert pro Teil</div>
+        <div class="rs-text">Gesamtbetrag ÷ alle Teile: <code>640 ÷ 40 = 16 CHF</code> pro Person.</div>
+      </div>
+      <div class="ratio-step">
+        <div class="rs-num">Schritt 3 · Anteile berechnen</div>
+        <div class="rs-text">Klasse A: <code>16 × 18 = 288 CHF</code><br>Klasse B: <code>16 × 22 = 352 CHF</code></div>
+      </div>
+      <div class="ratio-step">
+        <div class="rs-num">Schritt 4 · Probe</div>
+        <div class="rs-text">Alle Anteile addieren: <code>288 + 352 = 640 CHF ✓</code> Stimmt!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL -->
+<div class="tool-wrapper" id="tool">
+  <div class="tool-inner">
+
+    <!-- Links: Eingabe + Schema -->
+    <div style="display:flex; flex-direction:column; gap:18px;">
+
+      <div class="card">
+        <div class="card-title">⚙️ Aufgabe eingeben</div>
+        <div class="setup-row">
+          <div class="input-group">
+            <label>Gesamtbetrag</label>
+            <input type="number" id="totalAmt" class="inp-md" value="640" min="0" step="0.01" oninput="update()">
+          </div>
+          <div class="input-group">
+            <label>Einheit</label>
+            <input type="text" id="cur" value="CHF" oninput="update()" style="width:72px">
+          </div>
+        </div>
+
+        <div class="card-title" style="font-size:0.9rem; margin-bottom:10px;">👥 Gruppen / Parteien</div>
+        <div class="parteien-list" id="pList"></div>
+        <button class="btn btn-outline" style="font-size:0.82rem;padding:7px 14px;" onclick="addP()">＋ Gruppe hinzufügen</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📐 Schema</div>
+        <div class="mode-row">
+          <span class="mode-lbl">Modus:</span>
+          <button class="mode-btn on" id="mManual" onclick="setMode('manual')">✏️ Selber rechnen</button>
+          <button class="mode-btn" id="mAuto" onclick="setMode('auto')">⚡ Automatisch</button>
+        </div>
+        <div class="schema-canvas" id="schemaCanvas"></div>
+      </div>
+
+    </div>
+
+    <!-- Rechts: Taschenrechner -->
+    <div class="card" style="align-self:start; position:sticky; top:20px;">
+      <div class="card-title">🔢 Taschenrechner</div>
+      <div class="calc-grid">
+        <div class="calc-disp" id="cd">
+          <div class="prev" id="cprev"></div>
+          <div id="cmain">0</div>
+        </div>
+        <button class="cb cl" onclick="cClear()">AC</button>
+        <button class="cb cl" onclick="cDel()">⌫</button>
+        <button class="cb op" onclick="cOp('%')">%</button>
+        <button class="cb op" onclick="cOp('÷')">÷</button>
+        <button class="cb" onclick="cN('7')">7</button>
+        <button class="cb" onclick="cN('8')">8</button>
+        <button class="cb" onclick="cN('9')">9</button>
+        <button class="cb op" onclick="cOp('×')">×</button>
+        <button class="cb" onclick="cN('4')">4</button>
+        <button class="cb" onclick="cN('5')">5</button>
+        <button class="cb" onclick="cN('6')">6</button>
+        <button class="cb op" onclick="cOp('−')">−</button>
+        <button class="cb" onclick="cN('1')">1</button>
+        <button class="cb" onclick="cN('2')">2</button>
+        <button class="cb" onclick="cN('3')">3</button>
+        <button class="cb op" onclick="cOp('+')">+</button>
+        <button class="cb z2" onclick="cN('0')">0</button>
+        <button class="cb" onclick="cDot()">.</button>
+        <button class="cb eq" onclick="cEq()">=</button>
+      </div>
+
+      <div style="margin-top:20px; padding-top:16px; border-top:2px solid var(--border);">
+        <div class="card-title" style="font-size:0.9rem; margin-bottom:10px;">📊 Verhältnis-Anzeige</div>
+        <div id="ratioDisplay" style="font-size:0.88rem; color:#555; line-height:1.7;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TASKS -->
+<section class="tasks-section" id="aufgaben">
+  <div class="tasks-inner">
+    <div class="section-label">Übungsaufgaben</div>
+    <div class="section-title">20 Aufgaben zum Selber-Lösen</div>
+    <p style="color:#666;font-size:0.9rem;margin-bottom:24px;line-height:1.6;">Klicke auf eine Aufgabe, um sie direkt ins Tool zu laden. Dann kannst du Schritt für Schritt lösen.</p>
+
+    <div class="task-filter">
+      <span class="tf-lbl">Kategorie:</span>
+      <button class="tf-btn cat-all on" onclick="filterTasks('all')">Alle</button>
+      <button class="tf-btn cat-schule" onclick="filterTasks('schule')">🏫 Schule</button>
+      <button class="tf-btn cat-natur" onclick="filterTasks('natur')">🌿 Natur</button>
+      <button class="tf-btn cat-geld" onclick="filterTasks('geld')">💰 Geld & Kosten</button>
+      <button class="tf-btn cat-alltag" onclick="filterTasks('alltag')">🏠 Alltag</button>
+      <button class="tf-btn cat-sport" onclick="filterTasks('sport')">⚽ Sport & Freizeit</button>
+    </div>
+
+    <div class="tasks-grid" id="tasksGrid"></div>
+  </div>
+</section>
+
+<div class="footer">
+  Verteilungsaufgaben · Mathematik-Tool für den Unterricht · © 2026
+</div>
+
+<script>
+const TASKS = [
+  { cat:'schule', total:640, cur:'CHF', unit:'SuS', label:'🚌 Schulausflug', text:'Eine Carfahrt nach Luzern kostet 640 CHF. Klasse A hat 18 SuS, Klasse B hat 22 SuS. Berechne den Anteil, den jede Klasse bezahlen muss.', parties:[{name:'Klasse A',n:18},{name:'Klasse B',n:22}] },
+  { cat:'schule', total:480, cur:'CHF', unit:'SuS', label:'🍕 Schulfest', text:'Für das Schulfest werden 480 CHF für Essen budgetiert. Es nehmen 3 Klassen teil: 5a mit 24 SuS, 5b mit 20 SuS und 5c mit 16 SuS. Wie viel zahlt jede Klasse?', parties:[{name:'Klasse 5a',n:24},{name:'Klasse 5b',n:20},{name:'Klasse 5c',n:16}] },
+  { cat:'schule', total:315, cur:'CHF', unit:'SuS', label:'📚 Bücher', text:'Die Schule kauft Bücher im Wert von 315 CHF. Klasse 6a braucht 21 Bücher, Klasse 6b 14 Bücher. Wie viel zahlt jede Klasse?', parties:[{name:'Klasse 6a',n:21},{name:'Klasse 6b',n:14}] },
+  { cat:'natur', total:900, cur:'kg', unit:'Tiere', label:'🐄 Bauernhof-Futter', text:'Auf einem Bauernhof brauchen die Tiere zusammen 900 kg Heu pro Woche. Es gibt 6 Kühe, 4 Schafe und 10 Ziegen. Wie viel Heu bekommt jede Tiergruppe?', parties:[{name:'Kühe',n:6},{name:'Schafe',n:4},{name:'Ziegen',n:10}] },
+  { cat:'natur', total:750, cur:'Liter', unit:'Pflanzen', label:'🌱 Giessen', text:'Im Schulgarten müssen 750 Liter Wasser auf die Beete verteilt werden. Beet 1 hat 30 Pflanzen, Beet 2 hat 20 Pflanzen, Beet 3 hat 25 Pflanzen. Wie viel Wasser bekommt jedes Beet?', parties:[{name:'Beet 1',n:30},{name:'Beet 2',n:20},{name:'Beet 3',n:25}] },
+  { cat:'natur', total:560, cur:'g', unit:'Vögel', label:'🐦 Vogelfutter', text:'Eine Vogelschutzorganisation verteilt 560 g Futter auf drei Volièren. Volière A hat 8 Vögel, B hat 14 Vögel, C hat 6 Vögel. Wie viel Futter bekommt jede Volière?', parties:[{name:'Volière A',n:8},{name:'Volière B',n:14},{name:'Volière C',n:6}] },
+  { cat:'geld', total:1200, cur:'CHF', unit:'Personen', label:'💼 Büromittel', text:'Eine Firma kauft Büromaterial für 1200 CHF. Abteilung A hat 15 Mitarbeitende, B hat 10 und C hat 5. Jede Abteilung zahlt nach Personenzahl. Wie viel zahlt jede Abteilung?', parties:[{name:'Abt. A',n:15},{name:'Abt. B',n:10},{name:'Abt. C',n:5}] },
+  { cat:'geld', total:840, cur:'CHF', unit:'Personen', label:'🏠 WG-Nebenkosten', text:'Eine Wohngemeinschaft zahlt 840 CHF Nebenkosten. Person A wohnt seit 4 Monaten dort, B seit 3 Monaten, C seit 2 Monaten, D seit 1 Monat. Aufteilung nach Wohndauer. Wie viel zahlt jede Person?', parties:[{name:'Person A',n:4},{name:'Person B',n:3},{name:'Person C',n:2},{name:'Person D',n:1}] },
+  { cat:'geld', total:2400, cur:'CHF', unit:'Anteile', label:'💰 Firmen-Gewinn', text:'Eine kleine Firma macht 2400 CHF Gewinn. Die drei Gründer haben unterschiedliche Anteile: Anna 3 Anteile, Beat 2 Anteile, Carla 1 Anteil. Wie viel bekommt jede Person?', parties:[{name:'Anna',n:3},{name:'Beat',n:2},{name:'Carla',n:1}] },
+  { cat:'geld', total:500, cur:'CHF', unit:'Tage', label:'🚗 Mietauto', text:'Vier Freunde mieten zusammen ein Auto für 500 CHF. Jonas fährt 5 Tage, Maria 3 Tage, Leo 1 Tag und Sara 1 Tag. Wie viel zahlt jede Person proportional zur Nutzungsdauer?', parties:[{name:'Jonas',n:5},{name:'Maria',n:3},{name:'Leo',n:1},{name:'Sara',n:1}] },
+  { cat:'alltag', total:360, cur:'CHF', unit:'Wochen', label:'🛒 Einkaufs-Abo', text:'Eine Einkaufsgemeinschaft zahlt 360 CHF für ein Jahres-Abo. Familie Müller bestellt 20 Wochen, Familie Huber 12 Wochen und Familie Koch 4 Wochen. Wie viel zahlt jede Familie?', parties:[{name:'Fam. Müller',n:20},{name:'Fam. Huber',n:12},{name:'Fam. Koch',n:4}] },
+  { cat:'alltag', total:720, cur:'CHF', unit:'m²', label:'🏗️ Renovierung', text:'Eine Hausverwaltung renoviert das Treppenhaus für 720 CHF. Die Kosten werden nach Wohnfläche verteilt: Whg. 1 hat 60 m², Whg. 2 hat 45 m², Whg. 3 hat 75 m². Wie viel zahlt jede Wohnung?', parties:[{name:'Whg. 1',n:60},{name:'Whg. 2',n:45},{name:'Whg. 3',n:75}] },
+  { cat:'alltag', total:180, cur:'CHF', unit:'Personen', label:'🎂 Geburtstagsfeier', text:'Für eine Geburtstagsfeier werden 180 CHF Kosten auf die Gäste aufgeteilt. Gruppe 1 (Kinder): 6 Personen, Gruppe 2 (Erwachsene): 9 Personen. Kinder zahlen pro Person gleich viel wie Erwachsene. Wie viel pro Gruppe?', parties:[{name:'Kinder',n:6},{name:'Erwachsene',n:9}] },
+  { cat:'alltag', total:990, cur:'CHF', unit:'Monate', label:'📺 Streaming-Abo', text:'Drei Haushalte teilen sich ein Streaming-Paket für 990 CHF. Haushalt A nutzt es 6 Monate, B 3 Monate und C 2 Monate. Wie viel zahlt jeder Haushalt?', parties:[{name:'Haushalt A',n:6},{name:'Haushalt B',n:3},{name:'Haushalt C',n:2}] },
+  { cat:'sport', total:1050, cur:'CHF', unit:'Spieler', label:'⚽ Fussballcamp', text:'Ein Fussballcamp kostet 1050 CHF. Es nehmen 3 Teams teil: Team Rot (14 Spieler), Team Blau (12 Spieler) und Team Gelb (9 Spieler). Wie viel zahlt jedes Team?', parties:[{name:'Team Rot',n:14},{name:'Team Blau',n:12},{name:'Team Gelb',n:9}] },
+  { cat:'sport', total:480, cur:'CHF', unit:'Stunden', label:'🎾 Tennisplatz', text:'Vier Spielerinnen teilen sich die Hallenmiete von 480 CHF. Sie haben den Platz unterschiedlich lange genutzt: Emma 6h, Lena 4h, Mia 3h, Julia 3h. Wie viel zahlt jede?', parties:[{name:'Emma',n:6},{name:'Lena',n:4},{name:'Mia',n:3},{name:'Julia',n:3}] },
+  { cat:'sport', total:675, cur:'CHF', unit:'Mitglieder', label:'🏊 Schwimmverein', text:'Ein Schwimmverein braucht 675 CHF für neue Ausrüstung. Gruppe Anfänger hat 15 Mitglieder, Gruppe Fortgeschrittene 12 und Gruppe Wettkampf 18. Wie viel zahlt jede Gruppe?', parties:[{name:'Anfänger',n:15},{name:'Fortgeschr.',n:12},{name:'Wettkampf',n:18}] },
+  { cat:'natur', total:420, cur:'m²', unit:'Häuser', label:'🌳 Gemeinschaftsgarten', text:'Vier Häuser teilen sich einen 420 m² grossen Gemeinschaftsgarten. Haus A hat 8 Bewohner, B hat 5, C hat 6 und D hat 9. Wie viel Fläche bekommt jedes Haus?', parties:[{name:'Haus A',n:8},{name:'Haus B',n:5},{name:'Haus C',n:6},{name:'Haus D',n:9}] },
+  { cat:'schule', total:560, cur:'min', unit:'SuS', label:'⏱️ Computerraum', text:'Der Computerraum ist 560 Minuten pro Woche buchbar. Klasse 4a hat 28 SuS, Klasse 4b hat 14 SuS. Die Zeit wird proportional zur Klassengrösse verteilt. Wie viele Minuten bekommt jede Klasse?', parties:[{name:'Klasse 4a',n:28},{name:'Klasse 4b',n:14}] },
+  { cat:'alltag', total:1440, cur:'CHF', unit:'km', label:'✈️ Flugkosten', text:'Drei Familien teilen sich die Kosten für einen Charterflug: 1440 CHF. Familie 1 fliegt 800 km, Familie 2 fliegt 400 km, Familie 3 fliegt 240 km. Wie viel zahlt jede Familie nach Distanz?', parties:[{name:'Familie 1',n:800},{name:'Familie 2',n:400},{name:'Familie 3',n:240}] },
+];
+
+let parteien = [{name:'Klasse A',n:18},{name:'Klasse B',n:22}];
+let mode = 'manual';
+let userPK = '';
+let userR = {};
+const COLS = ['c0','c1','c2','c3','c4','c5'];
+const DOTS = ['dot0','dot1','dot2','dot3','dot4','dot5'];
+const XCOLS = ['xcol0','xcol1','xcol2','xcol3','xcol4','xcol5'];
+const HEXC = ['#2563eb','#16a34a','#ea580c','#7c3aed','#0d9488','#e11d48'];
+
+function getT() { return parseFloat(document.getElementById('totalAmt').value)||0; }
+function getC() { return document.getElementById('cur').value||''; }
+function totalN() { return parteien.reduce((s,p)=>s+(parseInt(p.n)||0),0); }
+function getPK() { const t=totalN(); return t?getT()/t:0; }
+function fmt(n) { if(isNaN(n))return'—'; return parseFloat(n.toFixed(4)).toLocaleString('de-CH',{minimumFractionDigits:2,maximumFractionDigits:4}); }
+
+function renderP() {
+  const l=document.getElementById('pList'); l.innerHTML='';
+  parteien.forEach((p,i)=>{
+    const r=document.createElement('div'); r.className='partei-row';
+    r.innerHTML=`<div class="p-dot ${DOTS[i%6]}"></div>
+      <input type="text" class="p-name" value="${p.name}" placeholder="Name" oninput="parteien[${i}].name=this.value;update()">
+      <input type="number" class="p-num" value="${p.n}" min="1" placeholder="Anzahl" oninput="parteien[${i}].n=parseInt(this.value)||0;update()">
+      ${parteien.length>1?`<button class="p-rm" onclick="removeP(${i})">×</button>`:''}`;
+    l.appendChild(r);
+  });
+}
+
+function addP() { parteien.push({name:'Gruppe '+(parteien.length+1),n:10}); renderP(); update(); }
+function removeP(i) { parteien.splice(i,1); renderP(); update(); }
+
+function setMode(m) {
+  mode=m;
+  document.getElementById('mManual').classList.toggle('on',m==='manual');
+  document.getElementById('mAuto').classList.toggle('on',m==='auto');
+  update();
+}
+
+function update() { renderSchema(); renderRatio(); }
+
+function renderRatio() {
+  const box = document.getElementById('ratioDisplay');
+  const total = totalN();
+  const pk = getPK();
+  const cur = getC();
+  if(!total){box.innerHTML='<em>Keine Daten</em>';return;}
+  let html = `<strong>Verhältnis:</strong> ${parteien.map(p=>(parseInt(p.n)||0)).join(' : ')}<br>`;
+  html += `<strong>Teile total:</strong> ${total}<br>`;
+  html += `<strong>Pro Teil:</strong> ${fmt(pk)} ${cur}<br><br>`;
+  parteien.forEach((p,i)=>{
+    const n=parseInt(p.n)||0;
+    html+=`<span style="color:${HEXC[i%6]};font-weight:700;">${p.name}:</span> ${fmt(pk*n)} ${cur}<br>`;
+  });
+  box.innerHTML = html;
+}
+
+function renderSchema() {
+  const box = document.getElementById('schemaCanvas');
+  const total = getT(), cur = getC(), tn = totalN(), pk = getPK(), isAuto = mode==='auto';
+
+  let h = '';
+
+  h += `<div class="sc-total"><div class="sc-total-box">
+    <div class="tb-lbl">Gesamtbetrag</div>
+    <div class="tb-val">${fmt(total)} ${cur}</div>
+    <div class="tb-sub">${tn} Teile total</div>
+  </div></div>`;
+
+  h += `<div class="sc-arrow"><div class="a-lbl">÷ ${tn} Teile</div><div class="a-sym">↓</div></div>`;
+
+  if(isAuto){
+    h+=`<div class="sc-pk"><div class="sc-pk-box">
+      <div class="pk-lbl">Wert pro Teil ⚡</div>
+      <div class="pk-val">${fmt(pk)} ${cur}</div>
+    </div></div>`;
+  } else {
+    const chk = userPK!==''?(Math.abs(parseFloat(userPK)-pk)<0.005?'✅':'❌'):'';
+    h+=`<div class="sc-pk"><div class="sc-pk-box">
+      <div class="pk-lbl">Wert pro Teil (berechne selbst)</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+        <input class="pk-inp" type="number" step="0.01" value="${userPK}" placeholder="?"
+          oninput="userPK=this.value;renderSchema()"> 
+        <span style="font-weight:700;color:var(--blue);">${cur}</span>
+        <span style="font-size:1.1rem;">${chk}</span>
+      </div>
+    </div></div>`;
+  }
+
+  const pkV = isAuto ? pk : (parseFloat(userPK)||null);
+  h += `<div class="sc-branches" style="--n:${parteien.length}">`;
+
+  parteien.forEach((p,i)=>{
+    const n=parseInt(p.n)||0;
+    const col=COLS[i%6]; const xcol=XCOLS[i%6];
+    const expected = pkV!==null ? pkV*n : null;
+    const uv = userR[i]!==undefined?userR[i]:'';
+    const chk = (!isAuto&&uv!==''&&expected!==null)?(Math.abs(parseFloat(uv)-expected)<0.005?'✅':'❌'):'';
+
+    h+=`<div class="sc-branch">
+      <div class="branch-v"></div>
+      <div class="branch-xlbl ${xcol}">× ${n}</div>
+      <div class="branch-arr ${xcol}">↓</div>
+      <div class="sc-party-box ${col}">
+        <div class="pb-name">${p.name}</div>
+        <div class="pb-n">${n} Teile</div>`;
+
+    if(isAuto){
+      h+=`<div class="pb-val">${expected!==null?fmt(expected):'—'} <span style="font-size:0.7rem;">${cur}</span></div>`;
+    } else {
+      h+=`<input class="pb-inp" type="number" step="0.01" value="${uv}" placeholder="?"
+          oninput="userR[${i}]=this.value;renderSchema()"
+          style="border-bottom-color:${HEXC[i%6]};color:${HEXC[i%6]};">
+        <div style="font-size:0.95rem;margin-top:2px;">${chk}</div>
+        <div style="font-size:0.68rem;margin-top:1px;">${cur}</div>`;
+    }
+
+    h+=`</div></div>`;
+  });
+
+  h += `</div>`;
+
+  const sum = isAuto
+    ? parteien.reduce((s,p,i)=>s+(pkV?pkV*(parseInt(p.n)||0):0),0)
+    : parteien.reduce((s,p,i)=>s+(userR[i]!==undefined?parseFloat(userR[i])||0:0),0);
+  const allFilled = isAuto||parteien.every((p,i)=>userR[i]!==undefined&&userR[i]!=='');
+  const ok = Math.abs(sum-total)<0.01;
+
+  h += `<div class="sc-check">
+    <span class="ck-lbl">🔍 Probe:</span>
+    <span class="ck-val">${allFilled||isAuto?fmt(sum)+' '+cur:'?'}</span>
+    ${(allFilled||isAuto)?`<span class="ck-badge ${ok?'ck-ok':'ck-err'}">${ok?'✓ Stimmt genau!':'✗ Differenz: '+fmt(Math.abs(sum-total))+' '+cur}</span>`:''}
+  </div>`;
+
+  box.innerHTML = h;
+}
+
+// ==================== CALC ====================
+let cCur='0',cPrev='',cOper=null,cWait=false;
+function cDisp(){document.getElementById('cmain').textContent=cCur;document.getElementById('cprev').textContent=cPrev;}
+function cN(n){if(cWait){cCur=n;cWait=false;}else cCur=cCur==='0'?n:cCur+n;cDisp();}
+function cDot(){if(cWait){cCur='0.';cWait=false;}else if(!cCur.includes('.'))cCur+='.';cDisp();}
+function cOp(op){if(cOper&&!cWait)cEq();cPrev=cCur+' '+op;cOper=op;cWait=true;cDisp();}
+function cEq(){if(!cOper)return;const a=parseFloat(cPrev),b=parseFloat(cCur);let r;switch(cOper){case'+':r=a+b;break;case'−':r=a-b;break;case'×':r=a*b;break;case'÷':r=b?a/b:'Err';break;case'%':r=a*b/100;break;default:r=b;}cPrev=cPrev+' '+cCur+' =';cCur=typeof r==='number'?parseFloat(r.toFixed(8)).toString():r;cOper=null;cWait=true;cDisp();}
+function cClear(){cCur='0';cPrev='';cOper=null;cWait=false;cDisp();}
+function cDel(){if(cWait)return;cCur=cCur.length>1?cCur.slice(0,-1):'0';cDisp();}
+
+// ==================== TASKS ====================
+const CATNAMES = {schule:'🏫 Schule',natur:'🌿 Natur',geld:'💰 Geld',alltag:'🏠 Alltag',sport:'⚽ Sport'};
+let activeFilter = 'all';
+
+function renderTasks() {
+  const grid = document.getElementById('tasksGrid');
+  grid.innerHTML = '';
+  TASKS.forEach((t,i)=>{
+    if(activeFilter!=='all'&&t.cat!==activeFilter)return;
+    const card=document.createElement('div');
+    card.className=`task-card cat-${t.cat}`;
+    card.innerHTML=`
+      <div class="tc-head">
+        <div class="tc-num">${String(i+1).padStart(2,'0')}</div>
+        <div class="tc-badge">${CATNAMES[t.cat]}</div>
+      </div>
+      <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">${t.label}</div>
+      <div class="tc-text">${t.text}</div>
+      <div class="tc-load">→ Im Tool öffnen</div>
+    `;
+    card.onclick=()=>loadTask(t);
+    grid.appendChild(card);
+  });
+}
+
+function filterTasks(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelector(`.tf-btn.cat-${cat}`).classList.add('on');
+  renderTasks();
+}
+
+function loadTask(t) {
+  document.getElementById('totalAmt').value = t.total;
+  document.getElementById('cur').value = t.cur;
+  parteien = t.parties.map(p=>({name:p.name,n:p.n}));
+  userPK=''; userR={};
+  renderP(); update();
+  document.getElementById('tool').scrollIntoView({behavior:'smooth'});
+}
+
+// ==================== INIT ====================
+renderP();
+update();
+renderTasks();
+</script>
+</body>
+</html>

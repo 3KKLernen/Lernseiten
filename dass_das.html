@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>dass oder das? – Deutschübungen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@400;700;900&family=Source+Code+Pro:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --card: #21253a;
+  --border: #2e3350;
+  --gold: #f5c842;
+  --gold-d: #c9a020;
+  --gold-l: #fff3b0;
+  --green: #22c55e;
+  --green-d: #15803d;
+  --green-l: #dcfce7;
+  --red: #ef4444;
+  --red-d: #b91c1c;
+  --red-l: #fee2e2;
+  --blue: #60a5fa;
+  --blue-d: #1d4ed8;
+  --blue-l: #dbeafe;
+  --text: #e8eaf0;
+  --muted: #8891b0;
+  --r: 14px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(160deg, #0f1117 0%, #1a1030 60%, #0f1117 100%);
+  padding: 56px 20px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(245,200,66,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-block;
+  background: rgba(245,200,66,0.12);
+  border: 1px solid rgba(245,200,66,0.3);
+  color: var(--gold);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 16px;
+  position: relative;
+}
+.hero h1 .w-dass { color: var(--gold); }
+.hero h1 .w-oder { color: var(--muted); font-style: italic; font-size: 0.5em; vertical-align: middle; margin: 0 12px; }
+.hero h1 .w-das { color: #fff; }
+.hero-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.65;
+}
+.hero-nav {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.hn-btn {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.12s, box-shadow 0.12s;
+  min-height: 44px;
+}
+.hn-btn:hover { transform: translateY(-2px); }
+.hn-btn.gold { background: var(--gold); color: #1a1200; }
+.hn-btn.outline { background: rgba(255,255,255,0.07); color: var(--text); border: 1px solid var(--border); }
+
+/* ===== SECTION ===== */
+.section { max-width: 900px; margin: 0 auto; padding: 44px 20px; }
+.sec-label {
+  font-size: 0.7rem; font-weight: 900; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+/* ===== INTRO CARDS ===== */
+.intro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.intro-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+}
+.ic-icon { font-size: 1.8rem; margin-bottom: 10px; }
+.ic-title { font-weight: 900; font-size: 0.95rem; margin-bottom: 6px; color: #fff; }
+.ic-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+/* ===== RULE BOXES ===== */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+@media(max-width:600px){ .rules-grid { grid-template-columns: 1fr; } }
+
+.rule-box {
+  border-radius: var(--r);
+  padding: 24px;
+  border: 2px solid transparent;
+}
+.rule-box.dass-box {
+  background: rgba(245,200,66,0.07);
+  border-color: rgba(245,200,66,0.3);
+}
+.rule-box.das-box {
+  background: rgba(96,165,250,0.07);
+  border-color: rgba(96,165,250,0.3);
+}
+.rule-box .rb-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+.dass-box .rb-word { color: var(--gold); }
+.das-box .rb-word { color: var(--blue); }
+.rb-rule { font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.rb-test {
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+  line-height: 1.55;
+}
+.rb-test strong { color: var(--text); }
+.rb-examples { display: flex; flex-direction: column; gap: 6px; }
+.rb-ex {
+  font-size: 0.85rem;
+  padding: 7px 12px;
+  border-radius: 7px;
+  line-height: 1.45;
+}
+.dass-box .rb-ex { background: rgba(245,200,66,0.08); }
+.das-box .rb-ex { background: rgba(96,165,250,0.08); }
+.rb-ex .hl { font-family: 'Source Code Pro', monospace; font-weight: 600; }
+.dass-box .rb-ex .hl { color: var(--gold); }
+.das-box .rb-ex .hl { color: var(--blue); }
+
+/* ===== TRICK BOX ===== */
+.trick-box {
+  background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.04) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: var(--r);
+  padding: 24px;
+  margin-bottom: 36px;
+}
+.trick-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--green);
+  margin-bottom: 14px;
+}
+.trick-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; }
+.trick-step {
+  background: rgba(255,255,255,0.04);
+  border-radius: 9px;
+  padding: 14px;
+  border-left: 3px solid rgba(34,197,94,0.4);
+}
+.ts-num { font-size: 0.68rem; font-weight: 900; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+.ts-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.ts-text code { font-family: 'Source Code Pro', monospace; color: var(--text); background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-size: 0.82rem; }
+
+/* ===== ÜBUNGEN ===== */
+.uebungen-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 44px 20px;
+}
+.uebungen-inner { max-width: 900px; margin: 0 auto; }
+
+/* progress */
+.progress-bar-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pb-label { font-size: 0.8rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.pb-track { flex: 1; min-width: 100px; height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.pb-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 99px; transition: width 0.4s ease; }
+.pb-score { font-family: 'Source Code Pro', monospace; font-size: 0.88rem; color: var(--text); white-space: nowrap; }
+.pb-reset { font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 700; padding: 6px 12px; border: 1px solid var(--border); border-radius: 7px; background: none; color: var(--muted); cursor: pointer; transition: all 0.15s; min-height: 36px; }
+.pb-reset:hover { border-color: var(--red); color: var(--red); }
+
+/* filter */
+.level-filter {
+  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center;
+}
+.lf-lbl { font-size: 0.72rem; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.lf-btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  padding: 7px 16px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: none; color: var(--muted);
+  cursor: pointer; transition: all 0.15s;
+  min-height: 38px;
+}
+.lf-btn.on-all { background: var(--gold); color: #1a1200; border-color: var(--gold); }
+.lf-btn.on-1 { background: rgba(34,197,94,0.2); color: var(--green); border-color: var(--green); }
+.lf-btn.on-2 { background: rgba(96,165,250,0.2); color: var(--blue); border-color: var(--blue); }
+.lf-btn.on-3 { background: rgba(245,200,66,0.2); color: var(--gold); border-color: var(--gold); }
+.lf-btn.on-4 { background: rgba(239,68,68,0.2); color: var(--red); border-color: var(--red); }
+
+/* task cards */
+.tasks-list { display: flex; flex-direction: column; gap: 14px; }
+
+.task-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.task-card.correct { border-color: var(--green); background: rgba(34,197,94,0.05); }
+.task-card.wrong { border-color: var(--red); background: rgba(239,68,68,0.05); }
+
+.tc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.tc-num {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--muted);
+  background: rgba(255,255,255,0.05);
+  padding: 3px 8px; border-radius: 5px;
+}
+.tc-lvl-badge {
+  font-size: 0.7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+.lvl1 .tc-lvl-badge { background: rgba(34,197,94,0.15); color: var(--green); }
+.lvl2 .tc-lvl-badge { background: rgba(96,165,250,0.15); color: var(--blue); }
+.lvl3 .tc-lvl-badge { background: rgba(245,200,66,0.15); color: var(--gold); }
+.lvl4 .tc-lvl-badge { background: rgba(239,68,68,0.15); color: var(--red); }
+
+.tc-sentence {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.tc-sentence .gap {
+  display: inline-block;
+  min-width: 60px;
+  border-bottom: 2px solid var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+  text-align: center;
+  padding: 0 4px;
+  vertical-align: bottom;
+  line-height: 1.4;
+}
+
+.tc-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.choice-btn {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 9px;
+  border: 2px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 44px;
+  min-width: 80px;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); background: rgba(245,200,66,0.08); }
+.choice-btn.selected-correct { background: rgba(34,197,94,0.2); border-color: var(--green); color: var(--green); }
+.choice-btn.selected-wrong { background: rgba(239,68,68,0.2); border-color: var(--red); color: var(--red); }
+.choice-btn.show-correct { background: rgba(34,197,94,0.12); border-color: var(--green); color: var(--green); }
+.choice-btn:disabled { cursor: default; opacity: 0.7; }
+
+.tc-feedback {
+  font-size: 0.88rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: none;
+  line-height: 1.55;
+}
+.tc-feedback.show { display: block; }
+.tc-feedback.fb-ok { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+.tc-feedback.fb-err { background: rgba(239,68,68,0.12); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+
+.tc-hint-btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 7px;
+  padding: 6px 12px; cursor: pointer;
+  transition: all 0.15s;
+  min-height: 36px;
+  margin-left: auto;
+  display: block;
+}
+.tc-hint-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.tc-hint {
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: rgba(245,200,66,0.06);
+  border: 1px solid rgba(245,200,66,0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 8px;
+  display: none;
+  line-height: 1.55;
+}
+.tc-hint.show { display: block; }
+
+/* result */
+.result-box {
+  display: none;
+  background: linear-gradient(135deg, var(--card), rgba(245,200,66,0.05));
+  border: 2px solid var(--gold);
+  border-radius: 18px;
+  padding: 32px;
+  text-align: center;
+  margin-top: 28px;
+}
+.result-box.show { display: block; }
+.result-emoji { font-size: 3rem; margin-bottom: 12px; }
+.result-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+.result-score { font-size: 1.1rem; color: var(--muted); margin-bottom: 20px; }
+.result-msg { font-size: 0.9rem; color: var(--text); line-height: 1.6; max-width: 400px; margin: 0 auto; }
+
+/* ===== FOOTER ===== */
+.footer { text-align: center; padding: 28px 20px; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .hero { padding: 36px 14px 32px; }
+  .hero-nav { flex-direction: column; align-items: center; }
+  .hn-btn { width: 100%; max-width: 280px; text-align: center; }
+  .section { padding: 28px 14px; }
+  .uebungen-section { padding: 28px 14px; }
+  .intro-grid { grid-template-columns: 1fr; }
+  .trick-steps { grid-template-columns: 1fr; }
+  .progress-bar-wrap { flex-wrap: wrap; gap: 10px; }
+  .tc-sentence { font-size: 0.97rem; }
+  .choice-btn { padding: 12px 20px; font-size: 1rem; }
+  .result-box { padding: 22px 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-tag">✍️ Deutsch · Rechtschreibung · Sek I / Gymnasium</div>
+  <h1>
+    <span class="w-dass">dass</span>
+    <span class="w-oder">oder</span>
+    <span class="w-das">das</span>
+    <span style="display:block;font-size:0.22em;color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-family:'Lato',sans-serif;margin-top:8px;">Das ewige Dilemma – ein für alle Mal gelöst</span>
+  </h1>
+  <p class="hero-sub">Lerne mit Regeln, Tricks und 50 Übungen, wann du <strong style="color:var(--gold)">dass</strong> und wann du <strong style="color:var(--blue)">das</strong> schreibst. Von einfach bis knifflig – mit Hilfen auf Abruf.</p>
+  <div class="hero-nav">
+    <a href="#regeln" class="hn-btn gold">📖 Regeln lernen</a>
+    <a href="#uebungen" class="hn-btn outline">✏️ Zu den Übungen</a>
+  </div>
+</section>
+
+<!-- EINFÜHRUNG -->
+<section class="section" id="einführung">
+  <div class="sec-label">Warum ist das so schwer?</div>
+  <div class="sec-title">Zwei Wörter – eine grosse Verwirrung</div>
+
+  <div class="intro-grid">
+    <div class="intro-card">
+      <div class="ic-icon">🔊</div>
+      <div class="ic-title">Gleich gesprochen</div>
+      <div class="ic-text">«dass» und «das» klingen identisch – kein Wunder, dass viele zögern. Die Unterscheidung passiert nur schriftlich und braucht echtes Regelwissen.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">🧩</div>
+      <div class="ic-title">Verschiedene Rollen</div>
+      <div class="ic-text"><strong style="color:var(--gold)">dass</strong> ist eine Konjunktion (Bindewort) und verbindet Sätze. <strong style="color:var(--blue)">das</strong> ist ein Artikel oder Pronomen und begleitet Nomen.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">🔑</div>
+      <div class="ic-title">Ein Test reicht</div>
+      <div class="ic-text">Es gibt einen zuverlässigen Ersatzprobe-Test: Ersetze das Wort durch <em>«welches»</em> oder <em>«dieses»</em>. Klappt das? Dann schreibst du <strong style="color:var(--blue)">das</strong>!</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">📈</div>
+      <div class="ic-title">50 Übungen</div>
+      <div class="ic-text">Vier Schwierigkeitsstufen: von einfachen Sätzen bis zu komplexen Texten mit Schachtelsätzen, Relativsätzen und Nominalisierungen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGELN -->
+<section class="section" id="regeln" style="padding-top:0">
+  <div class="sec-label">Die Regeln</div>
+  <div class="sec-title">Wann schreibe ich was?</div>
+
+  <div class="rules-grid">
+    <!-- DASS -->
+    <div class="rule-box dass-box">
+      <div class="rb-word">dass</div>
+      <div class="rb-rule">📌 Konjunktion – verbindet zwei Sätze</div>
+      <div class="rb-test">
+        <strong>Erkennungstest:</strong><br>
+        Kann man «dass» durch <em>«welches»</em> oder <em>«dieses»</em> ersetzen?<br>
+        → <strong>Nein?</strong> → schreibe <strong>dass</strong>
+      </div>
+      <div class="rb-examples">
+        <div class="rb-ex">Ich hoffe, <span class="hl">dass</span> du kommst.</div>
+        <div class="rb-ex">Sie sagt, <span class="hl">dass</span> er lügt.</div>
+        <div class="rb-ex">Es ist schade, <span class="hl">dass</span> es regnet.</div>
+        <div class="rb-ex">Wir wissen, <span class="hl">dass</span> die Erde rund ist.</div>
+      </div>
+    </div>
+
+    <!-- DAS -->
+    <div class="rule-box das-box">
+      <div class="rb-word">das</div>
+      <div class="rb-rule">📌 Artikel oder Pronomen – steht vor/für ein Nomen</div>
+      <div class="rb-test">
+        <strong>Erkennungstest:</strong><br>
+        Kann man «das» durch <em>«welches»</em> oder <em>«dieses»</em> ersetzen?<br>
+        → <strong>Ja?</strong> → schreibe <strong>das</strong>
+      </div>
+      <div class="rb-examples">
+        <div class="rb-ex"><span class="hl">Das</span> Buch liegt auf dem Tisch. → <em>Dieses</em> Buch ✓</div>
+        <div class="rb-ex"><span class="hl">Das</span> ist mein Hund. → <em>Dieses</em> ist… ✓</div>
+        <div class="rb-ex">Ich nehme <span class="hl">das</span>, das rot ist. → <em>welches</em> ✓</div>
+        <div class="rb-ex">Der Hund, <span class="hl">das</span> Tier… → <em>dieses</em> Tier ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRICK -->
+  <div class="trick-box">
+    <h3>💡 Der Goldene Trick: Ersatzprobe</h3>
+    <div class="trick-steps">
+      <div class="trick-step">
+        <div class="ts-num">Schritt 1</div>
+        <div class="ts-text">Nimm das fragliche Wort und versuche es durch <code>dieses</code> oder <code>welches</code> zu ersetzen.</div>
+      </div>
+      <div class="trick-step">
+        <div class="ts-num">Schritt 2 · Klappt es?</div>
+        <div class="ts-text">«Ich nehme <code>dieses</code>, …» → klingt wie ein Satz? → schreibe <strong style="color:var(--blue)">das</strong></div>
+      </div>
+      <div class="trick-step">
+        <div class="ts-num">Schritt 3 · Klappt es nicht?</div>
+        <div class="ts-text">«Ich hoffe, <code>dieses</code> er kommt» → klingt falsch? → schreibe <strong style="color:var(--gold)">dass</strong></div>
+      </div>
+      <div class="trick-step">
+        <div class="ts-num">Sonderfall: dass-Satz</div>
+        <div class="ts-text">Nach Verben wie <code>sagen, hoffen, wissen, glauben, finden</code> folgt fast immer <strong style="color:var(--gold)">dass</strong>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBUNGEN -->
+<div class="uebungen-section" id="uebungen">
+  <div class="uebungen-inner">
+    <div class="sec-label">Übungen</div>
+    <div class="sec-title">50 Aufgaben – Schwierigkeit steigend</div>
+
+    <div class="progress-bar-wrap">
+      <span class="pb-label">Fortschritt</span>
+      <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+      <span class="pb-score" id="pbScore">0 / 50</span>
+      <button class="pb-reset" onclick="resetAll()">↺ Neu starten</button>
+    </div>
+
+    <div class="level-filter">
+      <span class="lf-lbl">Stufe:</span>
+      <button class="lf-btn on-all" id="lfall" onclick="filterLevel('all')">Alle</button>
+      <button class="lf-btn" id="lf1" onclick="filterLevel(1)">🟢 Einfach</button>
+      <button class="lf-btn" id="lf2" onclick="filterLevel(2)">🔵 Mittel</button>
+      <button class="lf-btn" id="lf3" onclick="filterLevel(3)">🟡 Schwer</button>
+      <button class="lf-btn" id="lf4" onclick="filterLevel(4)">🔴 Experte</button>
+    </div>
+
+    <div class="tasks-list" id="tasksList"></div>
+    <div class="result-box" id="resultBox">
+      <div class="result-emoji" id="resultEmoji">🎉</div>
+      <div class="result-title" id="resultTitle">Fertig!</div>
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-msg" id="resultMsg"></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">dass oder das? · Deutschübungen · Für Schule und Unterricht · © 2026</div>
+
+<script>
+const TASKS = [
+  // ===== STUFE 1: EINFACH =====
+  {id:1, level:1, sentence:"Ich hoffe, ___ du mich besuchst.", answer:"dass", hint:"Nach «hoffe» + Komma → fast immer «dass». Test: «Ich hoffe, dieses du mich besuchst» → klingt falsch → dass."},
+  {id:2, level:1, sentence:"___ Buch gehört mir.", answer:"Das", hint:"Vor dem Nomen «Buch» steht ein Artikel. Test: «Dieses Buch gehört mir» → klingt gut → das."},
+  {id:3, level:1, sentence:"Sie sagt, ___ er zu spät kommt.", answer:"dass", hint:"Nach «sagt» + Komma leitet «dass» einen Nebensatz ein. Ersatzprobe: «dieses er kommt» → klingt falsch → dass."},
+  {id:4, level:1, sentence:"___ ist mein Fahrrad.", answer:"Das", hint:"Das Wort steht am Satzanfang und zeigt auf etwas. Test: «Dieses ist mein Fahrrad» → klingt sinnvoll → das."},
+  {id:5, level:1, sentence:"Wir wissen, ___ die Erde eine Kugel ist.", answer:"dass", hint:"Nach «wissen» + Komma folgt ein Nebensatz mit «dass». Ersatzprobe schlägt fehl."},
+  {id:6, level:1, sentence:"___ Mädchen spielt im Garten.", answer:"Das", hint:"Artikel vor Nomen. Test: «Dieses Mädchen» → klingt gut → das."},
+  {id:7, level:1, sentence:"Es ist wichtig, ___ du lernst.", answer:"dass", hint:"«Es ist wichtig, …» – danach kommt ein Nebensatz. «dieses du lernst» klingt falsch → dass."},
+  {id:8, level:1, sentence:"Ich sehe, ___ Fenster ist offen.", answer:"das", hint:"Hier ist «das» Artikel vor «Fenster». Test: «dieses Fenster» → klingt gut → das."},
+  {id:9, level:1, sentence:"Er glaubt, ___ er gewonnen hat.", answer:"dass", hint:"Nach «glaubt» folgt ein «dass»-Satz. Ersatzprobe: «dieses er gewonnen hat» → Unsinn → dass."},
+  {id:10, level:1, sentence:"___ war ein schöner Tag.", answer:"Das", hint:"Steht allein und zeigt auf einen Sachverhalt. «Dieses war ein schöner Tag» → klingt gut → das."},
+  {id:11, level:1, sentence:"Ich finde, ___ du recht hast.", answer:"dass", hint:"Nach «finde» + Komma folgt ein Nebensatz mit «dass»."},
+  {id:12, level:1, sentence:"___ Kind lacht laut.", answer:"Das", hint:"Artikel vor Nomen «Kind». «Dieses Kind lacht» → klingt gut → das."},
+  {id:13, level:1, sentence:"Sie wünscht sich, ___ es schneit.", answer:"dass", hint:"Nach «wünscht sich» folgt ein Nebensatz. «dieses es schneit» ergibt keinen Sinn → dass."},
+
+  // ===== STUFE 2: MITTEL =====
+  {id:14, level:2, sentence:"Ich nehme ___, was du mir gibst.", answer:"das", hint:"Hier ist «das» ein Demonstrativpronomen (= dieses/jenes). «Ich nehme dieses, was du mir gibst» → klingt gut → das."},
+  {id:15, level:2, sentence:"Es stimmt, ___ er die Prüfung bestanden hat.", answer:"dass", hint:"«Es stimmt, …» → Nebensatz folgt. Ersatzprobe schlägt fehl → dass."},
+  {id:16, level:2, sentence:"___ Ergebnis überrascht mich.", answer:"Das", hint:"Artikel vor Nomen «Ergebnis». Ersatz durch «Dieses Ergebnis» möglich → das."},
+  {id:17, level:2, sentence:"Niemand ahnte, ___ er lügt.", answer:"dass", hint:"«ahnte» leitet einen indirekten Redebericht ein. «dieses er lügt» klingt falsch → dass."},
+  {id:18, level:2, sentence:"___ Auto, ___ dort steht, gehört ihr.", answer:"Das / das", hint:"Erstes «das»: Artikel vor «Auto». Zweites «das»: Relativpronomen (welches). Beide Male «das»."},
+  {id:19, level:2, sentence:"Er betont, ___ Pünktlichkeit wichtig ist.", answer:"dass", hint:"Nach «betont» folgt ein «dass»-Satz. Ersatzprobe ergibt Unsinn."},
+  {id:20, level:2, sentence:"___ ist alles, ___ ich weiss.", answer:"Das / das", hint:"«Das» 1: Demonstrativpronomen. «das» 2: Relativpronomen (= welches ich weiss). Beide: das."},
+  {id:21, level:2, sentence:"Ich bin froh, ___ du da bist.", answer:"dass", hint:"«bin froh» + Komma → Nebensatz. Ersatzprobe fehlschlag → dass."},
+  {id:22, level:2, sentence:"___ Buch, ___ auf dem Tisch liegt, ist spannend.", answer:"Das / das", hint:"Erstes: Artikel. Zweites: Relativpronomen (= welches auf dem Tisch liegt) → beide: das."},
+  {id:23, level:2, sentence:"Man merkt, ___ sie müde ist.", answer:"dass", hint:"Nach «merkt» folgt ein Nebensatz. «dieses sie müde ist» klingt falsch → dass."},
+  {id:24, level:2, sentence:"Ich verstehe, ___ du traurig bist.", answer:"dass", hint:"«verstehe» + Komma → Nebensatz mit «dass». Ersatzprobe schlägt fehl."},
+  {id:25, level:2, sentence:"___ Wetter war gestern schön.", answer:"Das", hint:"Artikel vor Nomen «Wetter». «Dieses Wetter» → klingt gut → das."},
+  {id:26, level:2, sentence:"Sie hofft, ___ der Zug Verspätung hat.", answer:"dass", hint:"Nach «hofft» folgt ein «dass»-Satz."},
+
+  // ===== STUFE 3: SCHWER =====
+  {id:27, level:3, sentence:"___ Schöne an der Reise war, ___ wir Zeit hatten.", answer:"Das / dass", hint:"«Das Schöne» = Nominalisierung (Adjektiv wird Nomen), davor Artikel → das. Danach Nebensatz → dass."},
+  {id:28, level:3, sentence:"Er sagte, ___ ___ Projekt abgeschlossen sei.", answer:"dass das", hint:"Erst kommt «dass» (Konjunktion nach «sagte»), dann «das» als Artikel vor «Projekt»."},
+  {id:29, level:3, sentence:"___ Gute ist, ___ wir noch Zeit haben.", answer:"Das / dass", hint:"«Das Gute» = nominalisiertes Adjektiv (Artikel davor) → das. Zweiter Teil: Nebensatz → dass."},
+  {id:30, level:3, sentence:"Ich weiss, ___ ___ Buch fehlt.", answer:"dass das", hint:"«Ich weiss, dass…» → Nebensatz. Darin: «das Buch» als Artikel + Nomen → «dass das»."},
+  {id:31, level:3, sentence:"___ Problem ist, ___ niemand zuhört.", answer:"Das / dass", hint:"«Das Problem» = Artikel + Nomen → das. «dass niemand zuhört» = Nebensatz → dass."},
+  {id:32, level:3, sentence:"Sie behauptet, ___ ___ Tier zahm ist.", answer:"dass das", hint:"Konjunktion nach «behauptet» = dass. Dann Artikel vor «Tier» = das."},
+  {id:33, level:3, sentence:"___ Schwierige daran ist, ___ man üben muss.", answer:"Das / dass", hint:"«Das Schwierige» = nominalisiertes Adjektiv → das. Danach: Nebensatz → dass."},
+  {id:34, level:3, sentence:"Ich bin sicher, ___ ___ stimmt.", answer:"dass das", hint:"«bin sicher, dass» = Nebensatz. «das stimmt» = Demonstrativpronomen → «dass das stimmt»."},
+  {id:35, level:3, sentence:"___, was er sagte, bewies, ___ er log.", answer:"Das / dass", hint:"Erstes «Das»: Demonstrativpronomen (= Dieses, was er sagte). «dass er log»: Nebensatz nach «bewies»."},
+  {id:36, level:3, sentence:"Wir finden, ___ ___ Angebot gut ist.", answer:"dass das", hint:"«finden, dass» → Nebensatz-Einleitung. Dann «das Angebot» = Artikel + Nomen."},
+  {id:37, level:3, sentence:"___ Erstaunliche war, ___ sie es geschafft hatte.", answer:"Das / dass", hint:"«Das Erstaunliche» = Nominalisierung → das. Danach Nebensatz → dass."},
+  {id:38, level:3, sentence:"___ Kind bemerkte nicht, ___ es regnete.", answer:"Das / dass", hint:"«Das Kind» = Artikel → das. «dass es regnete» = Nebensatz → dass."},
+
+  // ===== STUFE 4: EXPERTE =====
+  {id:39, level:4, sentence:"___ Beste, ___ man tun kann, ist, ___ man ehrlich bleibt.", answer:"Das / das / dass", hint:"1. «Das Beste» = nominalisiertes Adjektiv. 2. «das man tun kann» = Relativpronomen (= welches). 3. «dass man ehrlich bleibt» = Nebensatz nach «ist»."},
+  {id:40, level:4, sentence:"Ich glaube, ___ ___ Ergebnis, ___ sie erzielt hat, korrekt ist.", answer:"dass das / das", hint:"«glaube, dass» = Nebensatz. «das Ergebnis» = Artikel. «das sie erzielt hat» = Relativpronomen."},
+  {id:41, level:4, sentence:"___ Schlimme an der Sache ist, ___ ___ nie aufhört.", answer:"Das / dass / das", hint:"«Das Schlimme» = Nominalisierung. «dass» = Nebensatz. «das nie aufhört» = Relativpronomen (= welches)."},
+  {id:42, level:4, sentence:"Er ahnte nicht, ___ ___ Tier, ___ er pflegte, krank war.", answer:"dass das / das", hint:"«ahnte nicht, dass» = Nebensatz. «das Tier» = Artikel. «das er pflegte» = Relativpronomen."},
+  {id:43, level:4, sentence:"___ Schöne an dem Gedicht ist, ___ jeder etwas anderes darin sieht.", answer:"Das / dass", hint:"«Das Schöne» = Nominalisierung → das. Dann Nebensatz → dass."},
+  {id:44, level:4, sentence:"Man sollte wissen, ___ ___ Lernen Zeit braucht.", answer:"dass das", hint:"«wissen, dass» = Konjunktion. «das Lernen» = substantivierter Infinitiv mit Artikel → das."},
+  {id:45, level:4, sentence:"___ Wichtigste ist, ___ ___ Kind Vertrauen hat.", answer:"Das / dass / das", hint:"«Das Wichtigste» = Nominalisierung. «dass» = Nebensatz. «das Kind» = Artikel."},
+  {id:46, level:4, sentence:"Er bemerkte, ___ ___ Problem, ___ er erwähnte, schon gelöst war.", answer:"dass das / das", hint:"«bemerkte, dass» = Konjunktion. «das Problem» = Artikel. «das er erwähnte» = Relativpronomen."},
+  {id:47, level:4, sentence:"___ Gefährliche daran ist nicht, ___ es schwer ist, sondern ___ man aufgibt.", answer:"Das / dass / dass", hint:"«Das Gefährliche» = Nominalisierung → das. Beide «dass» leiten Nebensätze ein."},
+  {id:48, level:4, sentence:"Wir hoffen, ___ ___, ___ versprochen wurde, auch eingehalten wird.", answer:"dass das / das", hint:"«hoffen, dass» = Konjunktion. «das» = Demonstrativpronomen. «das versprochen wurde» = Relativsatz."},
+  {id:49, level:4, sentence:"Sie erkannte, ___ ___ Einzige, ___ half, die Wahrheit war.", answer:"dass das / das", hint:"«erkannte, dass» = Konjunktion. «das Einzige» = Nominalisierung. «das half» = Relativpronomen."},
+  {id:50, level:4, sentence:"___ Wesentliche an ___ Trick ist, ___ man ___ nicht denken muss.", answer:"Das / dem / dass / das", hint:"Komplex: Artikel + Nomen, Dativ-Artikel (dem), Konjunktion, Demonstrativpronomen."},
+];
+
+// STATE
+let answers = {}; // id -> 'correct'|'wrong'
+let hintsShown = {};
+let currentFilter = 'all';
+
+const LEVEL_NAMES = {1:'🟢 Einfach', 2:'🔵 Mittel', 3:'🟡 Schwer', 4:'🔴 Experte'};
+
+function renderTasks() {
+  const list = document.getElementById('tasksList');
+  list.innerHTML = '';
+  const filtered = currentFilter === 'all' ? TASKS : TASKS.filter(t => t.level === currentFilter);
+
+  filtered.forEach(task => {
+    const div = document.createElement('div');
+    const state = answers[task.id];
+    div.className = 'task-card lvl' + task.level + (state ? (state === 'correct' ? ' correct' : ' wrong') : '');
+    div.id = 'task-' + task.id;
+
+    // Parse sentence – split on ___ (single or multiple)
+    // May have multiple gaps
+    const parts = task.sentence.split('___');
+    const answerParts = task.answer.split(' / ').map(a => a.trim());
+
+    let sentenceHTML = '';
+    parts.forEach((part, i) => {
+      sentenceHTML += part;
+      if (i < parts.length - 1) {
+        const filled = state ? answerParts[i] || '?' : '';
+        sentenceHTML += `<span class="gap">${filled || '___'}</span>`;
+      }
+    });
+
+    div.innerHTML = `
+      <div class="tc-top">
+        <span class="tc-num">#${task.id}</span>
+        <span class="tc-lvl-badge">${LEVEL_NAMES[task.level]}</span>
+        ${state === 'correct' ? '<span style="color:var(--green);font-size:1rem;">✓ Richtig</span>' : ''}
+        ${state === 'wrong' ? '<span style="color:var(--red);font-size:1rem;">✗ Falsch</span>' : ''}
+      </div>
+      <div class="tc-sentence">${sentenceHTML}</div>
+      <div class="tc-buttons" id="btns-${task.id}">
+        ${renderButtons(task, state)}
+      </div>
+      <div class="tc-feedback ${state ? 'show' : ''} ${state === 'correct' ? 'fb-ok' : state === 'wrong' ? 'fb-err' : ''}" id="fb-${task.id}">
+        ${state ? getFeedback(task, state) : ''}
+      </div>
+      <button class="tc-hint-btn" onclick="toggleHint(${task.id})">💡 Hilfe anzeigen</button>
+      <div class="tc-hint ${hintsShown[task.id] ? 'show' : ''}" id="hint-${task.id}">${task.hint}</div>
+    `;
+    list.appendChild(div);
+  });
+
+  updateProgress();
+}
+
+function renderButtons(task, state) {
+  // Determine choices based on answer
+  const ans = task.answer.toLowerCase();
+  const hasDass = ans.includes('dass');
+  const hasDas = ans.includes('das') && !ans.includes('dass');
+  const hasBoth = ans.includes('dass') && ans.includes(' das');
+
+  let choices = [];
+  if (hasBoth || task.sentence.split('___').length - 1 > 1) {
+    // Multi-gap: show all combos
+    const gaps = task.sentence.split('___').length - 1;
+    const a = task.answer;
+    // Show the correct answer and a wrong one
+    const wrong = a.includes('dass') && a.includes(' das') ?
+      a.replace('dass', 'TEMP').replace('das', 'dass').replace('TEMP', 'das') :
+      (a === 'dass' ? 'das' : a === 'das' ? 'dass' : a.split(' / ').map(x => x === 'dass' ? 'das' : 'dass').join(' / '));
+
+    choices = [
+      { label: a, value: a },
+      { label: wrong, value: wrong }
+    ];
+  } else {
+    choices = [
+      { label: 'dass', value: 'dass' },
+      { label: 'das', value: 'das' }
+    ];
+  }
+
+  return choices.map(c => {
+    let cls = 'choice-btn';
+    if (state) {
+      const isCorrect = c.value.toLowerCase() === task.answer.toLowerCase() ||
+                        normalize(c.value) === normalize(task.answer);
+      if (isCorrect) cls += ' show-correct';
+      // if this was the chosen wrong answer
+    }
+    return `<button class="${cls}" onclick="answer(${task.id}, '${c.value}')" ${state ? 'disabled' : ''}>${c.label}</button>`;
+  }).join('');
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[^a-zäöüß \/]/g,'').trim();
+}
+
+function getFeedback(task, state) {
+  if (state === 'correct') {
+    return `✓ Richtig! <strong>${task.answer}</strong> ist korrekt.`;
+  } else {
+    return `✗ Leider falsch. Die richtige Antwort ist: <strong>${task.answer}</strong>. Tipp: ${task.hint}`;
+  }
+}
+
+function answer(taskId, chosen) {
+  const task = TASKS.find(t => t.id === taskId);
+  if (!task || answers[taskId]) return;
+
+  const correct = normalize(chosen) === normalize(task.answer);
+  answers[taskId] = correct ? 'correct' : 'wrong';
+
+  // Update card
+  const card = document.getElementById('task-' + taskId);
+  card.classList.add(correct ? 'correct' : 'wrong');
+
+  // Update buttons
+  const btnsDiv = document.getElementById('btns-' + taskId);
+  btnsDiv.innerHTML = renderButtons(task, answers[taskId]);
+
+  // Feedback
+  const fb = document.getElementById('fb-' + taskId);
+  fb.textContent = '';
+  fb.innerHTML = getFeedback(task, answers[taskId]);
+  fb.className = `tc-feedback show ${correct ? 'fb-ok' : 'fb-err'}`;
+
+  // Update top
+  const top = card.querySelector('.tc-top');
+  // remove old state indicators
+  top.querySelectorAll('span:not(.tc-num):not(.tc-lvl-badge)').forEach(e => e.remove());
+  const stateSpan = document.createElement('span');
+  stateSpan.style.color = correct ? 'var(--green)' : 'var(--red)';
+  stateSpan.style.fontSize = '1rem';
+  stateSpan.textContent = correct ? '✓ Richtig' : '✗ Falsch';
+  top.appendChild(stateSpan);
+
+  // Update sentence gaps
+  const sentenceDiv = card.querySelector('.tc-sentence');
+  const parts = task.sentence.split('___');
+  const answerParts = task.answer.split(' / ').map(a => a.trim());
+  let sentenceHTML = '';
+  parts.forEach((part, i) => {
+    sentenceHTML += part;
+    if (i < parts.length - 1) {
+      sentenceHTML += `<span class="gap">${answerParts[i] || '?'}</span>`;
+    }
+  });
+  sentenceDiv.innerHTML = sentenceHTML;
+
+  updateProgress();
+  checkAllDone();
+}
+
+function toggleHint(taskId) {
+  hintsShown[taskId] = !hintsShown[taskId];
+  const hint = document.getElementById('hint-' + taskId);
+  hint.classList.toggle('show', hintsShown[taskId]);
+}
+
+function updateProgress() {
+  const total = TASKS.length;
+  const done = Object.keys(answers).length;
+  const correct = Object.values(answers).filter(v => v === 'correct').length;
+  document.getElementById('pbFill').style.width = (done / total * 100) + '%';
+  document.getElementById('pbScore').textContent = correct + ' ✓  ' + (done - correct) + ' ✗  (' + done + '/' + total + ')';
+}
+
+function checkAllDone() {
+  const filtered = currentFilter === 'all' ? TASKS : TASKS.filter(t => t.level === currentFilter);
+  const allDone = filtered.every(t => answers[t.id]);
+  if (!allDone) return;
+
+  const correct = filtered.filter(t => answers[t.id] === 'correct').length;
+  const total = filtered.length;
+  const pct = Math.round(correct / total * 100);
+
+  const rb = document.getElementById('resultBox');
+  rb.classList.add('show');
+  document.getElementById('resultEmoji').textContent = pct >= 90 ? '🏆' : pct >= 70 ? '🎉' : pct >= 50 ? '👍' : '💪';
+  document.getElementById('resultTitle').textContent = pct >= 90 ? 'Ausgezeichnet!' : pct >= 70 ? 'Sehr gut!' : pct >= 50 ? 'Gut gemacht!' : 'Weiter üben!';
+  document.getElementById('resultScore').textContent = correct + ' von ' + total + ' richtig (' + pct + '%)';
+  document.getElementById('resultMsg').textContent = pct >= 90
+    ? 'Du beherrschst dass/das perfekt! Weiter so.'
+    : pct >= 70
+    ? 'Fast perfekt! Schau dir die falschen Antworten nochmals an.'
+    : pct >= 50
+    ? 'Guter Anfang! Lies die Regeln nochmals durch und versuche es erneut.'
+    : 'Übe regelmässig – mit dem Goldenen Trick wird es schnell besser!';
+
+  rb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function filterLevel(lv) {
+  currentFilter = lv;
+  document.querySelectorAll('.lf-btn').forEach(b => {
+    b.className = 'lf-btn';
+  });
+  if (lv === 'all') document.getElementById('lfall').classList.add('on-all');
+  else document.getElementById('lf' + lv).classList.add('on-' + lv);
+
+  document.getElementById('resultBox').classList.remove('show');
+  renderTasks();
+}
+
+function resetAll() {
+  if (!confirm('Alle Antworten zurücksetzen?')) return;
+  answers = {};
+  hintsShown = {};
+  document.getElementById('resultBox').classList.remove('show');
+  renderTasks();
+}
+
+// INIT
+renderTasks();
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lernseiten 3KK</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --ink: #1a1a2e;
+      --card1: #e8d5b7;
+      --card2: #c9e4ca;
+      --card3: #c5d8f0;
+      --card4: #f0c5c5;
+      --accent: #d4501a;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+      background-image: 
+        radial-gradient(circle at 20% 20%, #e8d5b730 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, #c5d8f030 0%, transparent 50%);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      margin-top: 1rem;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      border-radius: 20px;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 2px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s;
+      animation: fadeUp 0.6s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '→';
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.75rem;
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      border-color: var(--ink);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .card:nth-child(1) { background: var(--card1); animation-delay: 0.1s; }
+    .card:nth-child(2) { background: var(--card2); animation-delay: 0.2s; }
+    .card:nth-child(3) { background: var(--card3); animation-delay: 0.3s; }
+    .card:nth-child(4) { background: var(--card4); animation-delay: 0.4s; }
+
+    .card-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.08);
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      margin-top: auto;
+      width: fit-content;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.8rem;
+      color: #999;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="label">Förderzentrum Horizont</p>
+    <h1>Lern<span>seiten</span><br>3KK</h1>
+    <p class="subtitle">Wähle ein Thema und starte durch!</p>
+  </header>
+
+  <div class="grid">
+
+    <a class="card" href="weltkrieg1_mit_fotos-4.html">
+      <div class="card-icon">🪖</div>
+      <div class="card-title">Der Erste Weltkrieg</div>
+      <div class="card-desc">Hintergründe, Ereignisse und Auswirkungen des Ersten Weltkriegs 1914–1918.</div>
+      <span class="card-tag">Geschichte</span>
+    </a>
+
+    <a class="card" href="dass_das.html">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">dass oder das?</div>
+      <div class="card-desc">Lerne den Unterschied zwischen «dass» und «das» mit Übungen und Erklärungen.</div>
+      <span class="card-tag">Deutsch</span>
+    </a>
+
+    <a class="card" href="verteilungsaufgaben_Kopie.html">
+      <div class="card-icon">➗</div>
+      <div class="card-title">Verteilungsaufgaben</div>
+      <div class="card-desc">Proportionale Verteilung – einfach erklärt mit Schritt-für-Schritt-Aufgaben.</div>
+      <span class="card-tag">Mathematik</span>
+    </a>
+
+  </div>
+
+  <footer>© Förderzentrum Horizont · 3KK</footer>
+
+</body>
+</html>
